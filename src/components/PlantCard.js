@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
-function PlantCard({ id, name, image, price, index, plantsCurrent, setPlants }) {
+function PlantCard({ index, plant, plants, setPlants }) {
+  const {id, name, image, price } = plant
   const [inStock, setInStock] = useState(true)
   const [newPrice, setNewPrice] = useState("")
-
-  let inProccessPlants = [...plantsCurrent]
-  console.log(inProccessPlants[index])
-
 
   function handleSubmit(e, index){
     e.preventDefault()
@@ -17,11 +14,18 @@ function PlantCard({ id, name, image, price, index, plantsCurrent, setPlants }) 
     })
     .then(res => res.json())
     .then(res => {
-      console.log(index)
-      console.log(inProccessPlants[index])
-      inProccessPlants[index].price = res.price
-      console.log(inProccessPlants)
-      setPlants(inProccessPlants)
+      {const updatedPlantsArray = plants.map((plant) => {
+        if (plant.id === res.id) {
+          return res;
+        } else {
+          return plant;
+        }
+      });
+      setPlants(updatedPlantsArray);
+    }
+      // let inProccessPlants = [...plants]
+      // inProccessPlants[index].price = res.price;
+      // setPlants(inProccessPlants)
     })
   }
 
@@ -31,6 +35,8 @@ function PlantCard({ id, name, image, price, index, plantsCurrent, setPlants }) 
     })
     .then(res => res.json())
     .then(res => {
+      const updatedPlantsArray = plants.filter((plant) => plant.id !== id);
+      setPlants(updatedPlantsArray);
       console.log(res)
     })
   }
@@ -55,16 +61,3 @@ function PlantCard({ id, name, image, price, index, plantsCurrent, setPlants }) 
 }
 
 export default PlantCard;
-
-
-
-// let obj = {
-//   first: first,
-//   second: second,
-//   third: third,
-// }
-
-// obj.first = last
-
-
-// setPlants(...plantsCurrent.id = res)

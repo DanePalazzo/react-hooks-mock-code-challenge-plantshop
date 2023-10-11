@@ -30,7 +30,7 @@ function PlantPage() {
     <main>
       <NewPlantForm handleAddPlant={handleAddPlant} />
       <Search search={search} setSearch={setSearch} plants={plants} />
-      <PlantList plants={displayPlants} plantsCurrent={plants} setPlants={setPlants}/>
+      <PlantList displayPlants={displayPlants} plants={plants} setPlants={setPlants}/>
     </main>
   );
 }
